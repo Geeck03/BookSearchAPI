@@ -35,10 +35,12 @@ struct BookModel: Identifiable, Decodable, Hashable {
 
 
  //The method to get the URL from the search API
+    /*
     func getCoverURL() -> URL? {
        guard let coverId = coverId else { return nil }
        return URL(string: "https://covers.openlibrary.org/b/id/\(coverId)-L.jpg")
     }
+    */
     
     func hash(into hasher: inout Hasher) {
         hasher.combine(id)
