@@ -21,7 +21,7 @@ struct SearchViewPreview: View {
     //@Published var books: [BookModel] = []
     
     var body: some View {
-        VStack {
+        VStack () {
             TextField("Search for books", text: $viewModel.query, onCommit: {
                 viewModel.searchBooks()
                 
@@ -34,12 +34,9 @@ struct SearchViewPreview: View {
             } else if let errorMessage = viewModel.errorMessage {
                 Text("Error: \(errorMessage)")
             }
-            
-            
-             ForEach(viewModel.books, id: \.self) { book in
-                 BookRow()
-             }
-             
+            ForEach(viewModel.books) { book in
+                BookRow(book: book, networkManager: NetworkManager.mock)
+            }
         }
     }
 }
