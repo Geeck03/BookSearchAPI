@@ -17,11 +17,12 @@ class SearchViewModel: ObservableObject {
     private var networkManager = NetworkManager()
   
     func searchBooks() {
-
         //Checks if query is empty
         guard !query.isEmpty else {
             self.books = []
-            return
+
+            //maybe should not be empty brackets?
+            return books
     }
 
       //Is loading triggers a spinner
