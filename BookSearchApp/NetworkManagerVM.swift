@@ -39,20 +39,29 @@ class NetworkManager: ObservableObject {
     
     //Constructing the correct URL using a search query
     
+    
+    //Converts String into a usable URL object
     func fetchBooks(query: String) async -> [BookModel]? {
-        guard let url = URL(string: "\(baseURL)/search.json?q=\(query)") else {
+        guard let url = URL(string: "\(baseURL)/search.json") else {
             return nil
         }
         
         
+        //Breaks the URL a part so we can add query paramters
+        // q = the search term you're passing
+        // limit limits the results you want.
         var components = URLComponents(url: url, resolvingAgainstBaseURL: false)
         components?.queryItems = [
             URLQueryItem(name: "q", value: query),
             URLQueryItem(name: "limit", value: "10") // Example of limiting the results
         ]
         
+        //Builds the finalURL with the parameters stated above
         guard let finalURL = components?.url else { return nil }
         
+        //This creates a network request with the above URL
+        // Uses the "GET" JSON command which means retrieve data
+        // Gets the response back in JSON format
         var request = URLRequest(url: finalURL)
         request.httpMethod = "GET"
         request.allHTTPHeaderFields = ["Accept": "application/json"]
@@ -60,12 +69,18 @@ class NetworkManager: ObservableObject {
         do {
             
             // Decode the response into an instance of the Bookresponse model
-            
+            // Asynchronously sends the request for data, and waits for the server to respond. Gets raw data
             let (data, _) = try await URLSession.shared.data(for: request)
+            
+            //Creates a JSON decorder.
+            //Matches the JSON fields to your BookResponse and BookModel structs
             let decoder = JSONDecoder()
             //Decodes the response into the BookResponse model
             let bookResponse = try decoder.decode(BookResponse.self, from: data)
             
+            
+            //Updates the UI (on the main thread)
+            // books arrays now has the new results
             await MainActor.run {
                 self.books = bookResponse.results
                 self.isLoading = false
@@ -74,6 +89,7 @@ class NetworkManager: ObservableObject {
             return bookResponse.results
         }
         
+        //Updates the main thread if there is an error. 
         catch {
             await MainActor.run {
                 self.errorMessage = "Failed to load books: \(error.localizedDescription)"

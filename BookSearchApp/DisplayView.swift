@@ -35,6 +35,8 @@ struct BookRow: View {
             Text(book.title)
                 .font(.headline)
                 .lineLimit(2)
+            //Add authors
+            //Add descirption 
         }
         
         //Might need to add other things like author and the like, but I'm wating

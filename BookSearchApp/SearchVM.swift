@@ -22,7 +22,7 @@ class SearchViewModel: ObservableObject {
             self.books = []
 
             //maybe should not be empty brackets?
-            return books
+            return 
     }
 
       //Is loading triggers a spinner
