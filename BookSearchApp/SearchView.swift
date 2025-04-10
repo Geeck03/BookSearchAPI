@@ -24,7 +24,9 @@ struct SearchViewPreview: View {
         VStack {
             TextField("Search for books", text: $viewModel.query, onCommit: {
                 viewModel.searchBooks()
+                
             })
+            .textFieldStyle(RoundedBorderTextFieldStyle())
             .padding()
             
             if viewModel.isLoading {
@@ -33,59 +35,14 @@ struct SearchViewPreview: View {
                 Text("Error: \(errorMessage)")
             }
             
-            /*
+            
              ForEach(viewModel.books, id: \.self) { book in
-             Text(book.title)
+                 BookRow()
              }
-             */
-            
-            
-            List(viewModel.books, id: \.self) { book in
-                HStack {
-                    if let coverURL = book.getCoverURL() {
-                        AsyncImage(url: coverURL) { image in
-                            image.resizable()
-                                .scaledToFit()
-                                .frame(width: 50, height: 75)
-                            
-                            
-                        } placeholder: {
-                            ProgressView()
-                            /*
-                             Rectangle()
-                             .fill(Color.gray.opacity(0.3))
-                             .frame(width: 80, height: 120)
-                             .cornerRadius(8)
-                             */
-                            
-                        }
-                    }
-                    
-                    VStack(alignment: .leading) {
-                        Text(book.title)
-                            .font(.headline)
-                            .lineLimit(1)
-                        if let authors = book.author_name, !authors.isEmpty {
-                            Text(authors.joined(separator: ", "))
-                                .font(.subheadline)
-                                .foregroundColor(.gray)
-                            //Add authors
-                            //Add descirption
-                        } else {
-                            Text("No author available")
-                                .font(.subheadline)
-                                .forgroundColor(.gray)
-                            
-                            //Might need to add other things like author and the like, but I'm wating
-                        }
-                    }
-                }
-            }
+             
         }
     }
 }
-                    
-    
 
 
 #Preview {

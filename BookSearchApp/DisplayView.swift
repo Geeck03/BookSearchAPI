@@ -36,10 +36,33 @@ struct BookRow: View {
                 .font(.headline)
                 .lineLimit(2)
             //Add authors
-            //Add descirption 
+            //Add descirption
+            
+            //Text(book.description)
+            
+            if !book.authors.isEmpty {
+                Text("By: \(book.authors.joined(separator: ", "))")
+                    .font(.subheadline)
+                    .foregroundColor(.gray)
+                //Add authors
+                //Add descirption
+            } else {
+                Text("No author available")
+                    .font(.subheadline)
+            }
+            
+            if let description = book.description, !description.isEmpty {
+                Text(description)
+                    .font(.body)
+                    .foregroundColor(.gray)
+            }
+            else {
+                Text("No description available")
+                    .font(.body)
+                    .foregroundColor(.gray)
+            }
         }
-        
-        //Might need to add other things like author and the like, but I'm wating
+        .padding(.vertical, 8)
     }
 }
 

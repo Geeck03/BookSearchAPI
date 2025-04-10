@@ -15,7 +15,7 @@ class SearchViewModel: ObservableObject {
     @Published var errorMessage: String?
 
     private var networkManager = NetworkManager()
-  
+    
     func searchBooks() {
         //Checks if query is empty
         guard !query.isEmpty else {
