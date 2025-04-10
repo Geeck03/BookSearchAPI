@@ -15,7 +15,7 @@ struct BookRow: View {
     
     var body: some View {
         HStack(spacing: 15) {
-            AsyncImage(url: book.getCoverURL() {
+            AsyncImage(url: book.getCoverURL()) {
                 image in
                 image
                     .resizable()
@@ -29,10 +29,10 @@ struct BookRow: View {
                     .cornerRadius(8)
                 
             }
-        })
+        }
         
         VStack(alignment: .leading, spacing: 8) {
-            Text(book.name)
+            Text(book.title)
                 .font(.headline)
                 .lineLimit(2)
         }
@@ -40,18 +40,6 @@ struct BookRow: View {
         //Might need to add other things like author and the like, but I'm wating
     }
 }
-
-/*
-struct DisplayListPreview: View {
-    var body: some View {
-        VStack {
-            //example should be glowing. last book should not be
-            BookRow(book: BookModel.example, networkManager:
-                        book.mockNetworkManger)
-        }
-    }
-}
- */
 
 
 #Preview {

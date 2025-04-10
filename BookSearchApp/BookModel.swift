@@ -18,7 +18,7 @@ struct BookModel: Identifiable, Decodable, Hashable {
     let id: String
     let title: String
     let authors: [String]
-    let publisher: String
+    //let publisher: String
     //Optional
     let coverId: Int?
     let description: String?
@@ -28,20 +28,17 @@ struct BookModel: Identifiable, Decodable, Hashable {
         case id = "key"
         case title
         case authors = "author_name" //The author field
-        case publisher
+        //case publisher
         case coverId = "cover_i"
         case description
     }
 
-
- //The method to get the URL from the search API
-    /*
+    
     func getCoverURL() -> URL? {
        guard let coverId = coverId else { return nil }
        return URL(string: "https://covers.openlibrary.org/b/id/\(coverId)-L.jpg")
     }
-    */
-    
+ 
     func hash(into hasher: inout Hasher) {
         hasher.combine(id)
     }
@@ -56,8 +53,8 @@ extension BookModel {
     static let example = BookModel(
         id: "/works/OL12345W",
         title: "The Swift Programming Language",
-        authors: ["Apple Inc."],
-        publisher: "Apple Books",
+        authors: ["Apple"],
+        //publisher: "Apple Books",
         coverId: 123456, // This is the Open Library cover ID
         description: "A comprehensive guide to the Swift programming language."
     )
