@@ -53,7 +53,7 @@ class NetworkManager: ObservableObject {
         var components = URLComponents(url: url, resolvingAgainstBaseURL: false)
         components?.queryItems = [
             URLQueryItem(name: "q", value: query),
-            URLQueryItem(name: "limit", value: "10") // Example of limiting the results
+            URLQueryItem(name: "limit", value: "20") // Example of limiting the results
         ]
         
         //Builds the finalURL with the parameters stated above
@@ -82,14 +82,14 @@ class NetworkManager: ObservableObject {
             //Updates the UI (on the main thread)
             // books arrays now has the new results
             await MainActor.run {
-                self.books = bookResponse.results
+                self.books = bookResponse.docs
                 self.isLoading = false
             }
             
-            return bookResponse.results
+            return bookResponse.docs
         }
         
-        //Updates the main thread if there is an error. 
+        //Updates the main thread if there is an error.
         catch {
             await MainActor.run {
                 self.errorMessage = "Failed to load books: \(error.localizedDescription)"

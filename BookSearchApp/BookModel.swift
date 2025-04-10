@@ -55,14 +55,14 @@ extension BookModel {
         title: "The Swift Programming Language",
         authors: ["Apple"],
         //publisher: "Apple Books",
-        coverId: 123456, // This is the Open Library cover ID
+        coverId: 123446, // This is the Open Library cover ID
         description: "A comprehensive guide to the Swift programming language."
     )
 }
 
 //Response structure for APIs
 struct BookResponse: Decodable {
-    let results: [BookModel]
+    let docs: [BookModel]
 }
 
 

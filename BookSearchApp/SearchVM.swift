@@ -20,7 +20,8 @@ class SearchViewModel: ObservableObject {
         //Checks if query is empty
         guard !query.isEmpty else {
             self.books = []
-
+            self.errorMessage = nil
+            self.isLoading = false
             //maybe should not be empty brackets?
             return 
     }
@@ -34,12 +35,12 @@ class SearchViewModel: ObservableObject {
       // Allows you to do calls without blocking the main thread.
       
       Task {
-          if let books = await networkManager.fetchBooks(query: query) {
-            self.books = books
+          if let fetchedBooks = await networkManager.fetchBooks(query: query) {
+            self.books = fetchedBooks
         } else {
             self.errorMessage = networkManager.errorMessage
         }
-        isLoading = false
+        self.isLoading = false
       }
     }
 }
